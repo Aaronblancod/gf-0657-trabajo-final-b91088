@@ -5,7 +5,5 @@ geopandas
 folium
 streamlit-folium
 branca
-mapclassify
 rasterio
 numpy
-rasterio.plot
