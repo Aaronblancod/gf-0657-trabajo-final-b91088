@@ -592,7 +592,7 @@ centro = [cantones_gdf_merged.geometry.centroid.y.mean(), cantones_gdf_merged.ge
 mapa = folium.Map(
     location=centro,
     zoom_start=9,
-    zoomControl=True  # Mantén los controles de zoom para una mejor usabilidad
+    zoomControl=False
 )
 
 # Agregar la capa de coropletas de cantones
