@@ -8,3 +8,4 @@ branca
 rasterio
 numpy
 matplotlib
+mapclassify
