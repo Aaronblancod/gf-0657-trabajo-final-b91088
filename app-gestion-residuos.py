@@ -303,7 +303,7 @@ anios1 = [str(anio1) for anio1 in range(2010, 2021)]  # Crea la lista ['2010', '
 cantones_gdf_merged[anios1] = cantones_gdf_merged[anios1].fillna(0)
 
 # Cambio de CRS
-cantones_gdf_merged = cantones_gdf_merged.to_crs(epsg=5367)
+cantones_gdf_merged = cantones_gdf_merged.to_crs(epsg=4326) #Cambio
 
 
 #Calculo de la media del IDHD
