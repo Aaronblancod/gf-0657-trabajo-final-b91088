@@ -16,11 +16,12 @@ import folium
 import branca
 
 from io import BytesIO
-from streamlit_folium import folium_static
+
 from rasterio.mask import mask
 from os import name
 from matplotlib import colors
 from folium import Choropleth, Popup, Tooltip, GeoJson, GeoJsonTooltip
+from streamlit_folium import folium_static, st_folium
 from folium.raster_layers import ImageOverlay
 from branca.colormap import LinearColormap, linear
 
@@ -514,7 +515,8 @@ folium.LayerControl().add_to(m)
 
 # Mostrar el mapa
 st.subheader('Relación entre la distribución de la población y la gestión de residuos a escala nacional')
-folium_static(m)
+#folium_static(m)
+st_folium(m, width=800, height=600)
 
 # ----- Sección interactiva -----
 
@@ -660,4 +662,5 @@ folium.LayerControl().add_to(mapa)
 
 # Mostrar el mapa
 st.subheader('Relación entre la presencia de botaderos y el promedio del IDHD entre 2010 y 2020 por cantón según provincia')
-folium_static(mapa)
+#folium_static(mapa)
+st_folium(mapa, width=800, height=600)
