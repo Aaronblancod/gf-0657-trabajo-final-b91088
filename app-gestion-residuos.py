@@ -637,21 +637,21 @@ for _, row in botaderos_gdf_merged.iterrows():
     ).add_to(mapa)
 
 # Agregar la capa de contorno de provincias
-GeoJson(
-    provincias_gdf_merged,
-    name="Provincias",
-    style_function=lambda feature: {
-        'fillColor': 'none',  # Sin relleno
-        'color': 'black',      # Color del borde
-        'weight': 1,
-        'fillOpacity': 0
-    },
-    tooltip=GeoJsonTooltip(
-        fields=["provincia"],
-        aliases=["Provincia:"],
-        localize=True
-    )
-).add_to(mapa)
+#GeoJson(
+#    provincias_gdf_merged,
+#    name="Provincias",
+#    style_function=lambda feature: {
+#        'fillColor': 'none',  # Sin relleno
+#        'color': 'black',      # Color del borde
+#        'weight': 1,
+#        'fillOpacity': 0
+#    },
+#    tooltip=GeoJsonTooltip(
+#        fields=["provincia"],
+#        aliases=["Provincia:"],
+#        localize=True
+#    )
+#).add_to(mapa)
 
 # Agregar un control de capas
 folium.LayerControl().add_to(mapa)
