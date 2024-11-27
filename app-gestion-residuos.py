@@ -510,7 +510,7 @@ folium.LayerControl().add_to(base_map)
 
 # Mostrar el mapa
 st.subheader('Relación entre la distribución de la población y la gestión de residuos a escala nacional')
-st_folium(base_map, width=1200, height=600)
+st_folium(base_map, width=400, height=600)
 
 
 # ----- Sección interactiva -----
@@ -658,4 +658,4 @@ folium.LayerControl().add_to(mapa)
 
 # Mostrar el mapa con st_folium
 st.subheader('Relación entre la presencia de botaderos y el promedio del IDHD entre 2010 y 2020 por cantón según provincia')
-st_folium(mapa, width=1200, height=600)
+st_folium(mapa, width=400, height=600)
