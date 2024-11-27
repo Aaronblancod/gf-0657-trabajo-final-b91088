@@ -1,0 +1,27 @@
+canton,provincia,tipo,nombre,X,Y,id,cod_canton,cod_provin
+Aserrí,San José,Relleno Sanitario,Aczarri,-84.064581,9.860322,1,106,1
+Quepos,Puntarenas,Vertedero semicontrolado,ASOPROQUEPOS,-84.060361,9.429608,2,606,6
+Alvarado,Cartago,Relleno Sanitario,ND,-83.801456,9.910375,3,306,3
+Alajuela,Alajuela,Relleno Sanitario,Los Mangos,-84.259867,10.013631,4,201,2
+Cañas,Guanacaste,Vertedero a cielo abierto,ND,-85.097736,10.419856,5,506,5
+Liberia,Guanacaste,Relleno Sanitario,ND,-85.441956,10.645556,6,501,5
+Cartago,Cartago,Relleno Sanitario,Los Pinos,-83.880647,9.821344,7,301,3
+Corredores,Puntarenas,Relleno Sanitario,ND,-83.005378,8.680772,8,610,6
+Garabito,Puntarenas,Relleno Sanitario,Parque Ambiental Garabito,-84.610172,9.629739,9,611,6
+Golfito,Puntarenas,Vertedero semicontrolado,ND,-83.035189,8.672169,10,607,6
+Hojancha,Guanacaste,Relleno Sanitario,CACH,-85.399453,10.066433,11,511,5
+Jiménez,Cartago,Vertedero a cielo abierto,ND,-83.728681,9.856803,12,304,3
+La Cruz,Guanacaste,Vertedero a cielo abierto,ND,-85.625075,11.067906,13,510,5
+León Cortés Castro,San José,Vertedero semicontrolado,ND,-84.029644,9.680950,14,120,1
+Los Chiles,Alajuela,Relleno Sanitario,ND,-84.677561,10.994333,15,214,2
+Montes de Oro,Puntarenas,Relleno Sanitario,GALAGARZA,-84.759294,10.063242,16,604,6
+Nandayure,Guanacaste,Vertedero controlado,ND,-85.252011,10.009075,17,509,5
+Pérez Zeledón,San José,Vertedero semicontrolado,ND,-83.706556,9.340800,18,119,1
+Limón,Limón,Relleno Sanitario,ND,-83.086972,9.956022,19,701,7
+San Carlos,Alajuela,Relleno Sanitario,ND,-84.467258,10.388083,20,210,2
+San José,San José,Relleno Sanitario,La Carpio,-84.156828,9.965750,21,101,1
+San Ramón,Alajuela,Relleno Sanitario,ND,-84.482214,10.108081,22,202,2
+Santo Domingo,Heredia,Vertedero controlado,ND,-84.082597,9.970778,23,403,4
+Sarapiquí,Heredia,Vertedero a cielo abierto,ND,-84.120778,10.445158,24,410,4
+Turrialba,Cartago,Relleno Sanitario,ND,-83.687975,9.898522,25,305,3
+Upala,Alajuela,Vertedero semicontrolado,ND,-84.970350,10.826772,26,213,2
