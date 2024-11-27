@@ -7,7 +7,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import geopandas as gpd
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 #import mapclassify
 import rasterio
 import numpy as np
@@ -19,7 +19,7 @@ from io import BytesIO
 from streamlit_folium import folium_static
 from rasterio.mask import mask
 from os import name
-#from matplotlib import colors
+from matplotlib import colors
 from folium import Choropleth, Popup, Tooltip, GeoJson, GeoJsonTooltip
 from folium.raster_layers import ImageOverlay
 from branca.colormap import LinearColormap, linear
