@@ -638,22 +638,22 @@ botaderos_gdf_merged.explore(
     popup=True
 )
 
-# Añadir una capa de los botaderos
-folium.GeoJson(
-    provincias_gdf_merged,
-    name="Provincias",
-    style_function=lambda feature: {
-        'fillColor': 'none',  # Sin relleno
-        'color': 'black',      # Color del borde
-        'weight': 1,          # Grosor del borde
-        'fillOpacity': 0      # Transparencia completa
-    },
-    tooltip=GeoJsonTooltip(
-        fields=["provincia"],
-        aliases=["Provincia:"],
-        localize=True
-    )    
-).add_to(mapa)
+# Añadir una capa de las provincias
+#folium.GeoJson(
+#    provincias_gdf_merged,
+#    name="Provincias",
+#    style_function=lambda feature: {
+#        'fillColor': 'none',  # Sin relleno
+#        'color': 'black',      # Color del borde
+#        'weight': 1,          # Grosor del borde
+#        'fillOpacity': 0      # Transparencia completa
+#    },
+#    tooltip=GeoJsonTooltip(
+#        fields=["provincia"],
+#        aliases=["Provincia:"],
+#        localize=True
+#    )    
+#).add_to(mapa)
 
 # Agregar un control de capas
 folium.LayerControl().add_to(mapa)
