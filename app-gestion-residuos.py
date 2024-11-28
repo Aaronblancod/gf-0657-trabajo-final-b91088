@@ -648,6 +648,12 @@ botaderos_gdf_merged.explore(
     popup=True
 )
 
+# Simplificar las geometrías de provincias
+provincias_gdf_merged['geometry'] = provincias_gdf_merged['geometry'].simplify(
+    tolerance=0.01,  # Nivel de simplificación (ajústalo según tus necesidades)
+    preserve_topology=True  # Mantiene la estructura geométrica válida
+)
+
 # Añadir una capa de las provincias
 folium.GeoJson(
     provincias_gdf_merged,
