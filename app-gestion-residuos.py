@@ -481,15 +481,25 @@ folium.Choropleth(
 ).add_to(base_map)
 
 # Agregar los registros de la localización de los botaderos
-for _, row in botaderos_gdf.iterrows():
-    folium.CircleMarker(
-        location=[row.geometry.y, row.geometry.x],
-        radius=5,
-        color='red',
-        fill=True,
-        fill_opacity=0.8,
-        tooltip=folium.Tooltip(f"Cantón: {row['canton']}<br>Tipo: {row['tipo']}"),
-    ).add_to(base_map)
+#for _, row in botaderos_gdf.iterrows():
+#    folium.CircleMarker(
+#        location=[row.geometry.y, row.geometry.x],
+#        radius=5,
+#        color='red',
+#        fill=True,
+#        fill_opacity=0.8,
+#        tooltip=folium.Tooltip(f"Cantón: {row['canton']}<br>Tipo: {row['tipo']}"),
+#    ).add_to(base_map)
+
+# Añadir los registros de la localización de los botaderos
+botaderos_gdf.explore(
+    m=m,
+    name='Localización de los botaderos',
+    marker_type='circle',
+    marker_kwds={'radius': 200, 'color': 'red'},
+    tooltip=['canton', 'tipo', 'X', 'Y'],
+    popup=True
+)
 
 # Agregar la capa ráster y la leyenda al mapa
 #image_overlay.add_to(base_map)
