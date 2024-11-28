@@ -302,10 +302,6 @@ anios1 = [str(anio1) for anio1 in range(2010, 2021)]  # Crea la lista ['2010', '
 # Reemplazar valores nulos por 0 en estas columnas
 cantones_gdf_merged[anios1] = cantones_gdf_merged[anios1].fillna(0)
 
-# Cambio de CRS
-cantones_gdf_merged = cantones_gdf_merged.to_crs(epsg=4326) #Cambio
-
-
 #Calculo de la media del IDHD
 columnas_idhd = anios1
 
@@ -461,6 +457,8 @@ st.plotly_chart(fig2)
 
 # ----- MAPA -----
 
+# ----- Mapa de la relación entre la Distribución de la Población y la Gestión de Residuos en Costa Rica -----
+
 # Crear el mapa base con controles de zoom desactivados
 base_map = folium.Map(
     location=[10, -84],  # Centro del mapa
@@ -468,28 +466,20 @@ base_map = folium.Map(
     zoomControl=False  # Desactiva los controles de zoom
 )
 
-# Agregar la capa de provincias con densidad de botaderos (coropletas)
-folium.Choropleth(
-    geo_data=provincias_botaderos_gdf,
-    data=provincias_botaderos_gdf,
-    columns=['provincia', 'densidad_botaderos'],
-    key_on='feature.properties.provincia',
-    fill_color='Reds',
-    fill_opacity=0.7,
-    line_opacity=0.2,
-    legend_name="Densidad de botaderos por provincia"
-).add_to(base_map)
-
-# Agregar los registros de la localización de los botaderos
-#for _, row in botaderos_gdf.iterrows():
-#    folium.CircleMarker(
-#        location=[row.geometry.y, row.geometry.x],
-#        radius=5,
-#        color='red',
-#        fill=True,
-#        fill_opacity=0.8,
-#        tooltip=folium.Tooltip(f"Cantón: {row['canton']}<br>Tipo: {row['tipo']}"),
-#    ).add_to(base_map)
+# Mapa interactivo
+m = provincias_botaderos_gdf.explore(
+    name='Provincias con densidad de botaderos por km2',
+    column='densidad_botaderos',
+    cmap='Reds',
+    popup=True,
+    legend=True,
+    legend_kwds={
+        'caption': "Densidad de botaderos por provincia",
+        'orientation': "horizontal"
+    },
+    tooltip=['provincia', 'num_botaderos', 'densidad_botaderos'],  # elementos de datos de la ventana tooltip
+    m=base_map  # Vincular al mapa base
+)
 
 # Añadir los registros de la localización de los botaderos
 botaderos_gdf.explore(
@@ -502,24 +492,25 @@ botaderos_gdf.explore(
 )
 
 # Agregar la capa ráster y la leyenda al mapa
-#image_overlay.add_to(base_map)
-#colormap.add_to(base_map)
+#image_overlay.add_to(m)
+#colormap.add_to(m)
 
 # Añadir capa base de Esri Satellite
-folium.TileLayer(
+esri_satellite = folium.TileLayer(
     tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attr='Esri',
     name='Esri Satellite',
     overlay=False,
     control=True
-).add_to(base_map)
+).add_to(m)
 
 # Agregar un control de capas al mapa
-folium.LayerControl().add_to(base_map)
+folium.LayerControl().add_to(m)
 
 # Mostrar el mapa
-st.subheader('Densidad de botaderos por provincia a escala nacional')
-st_folium(base_map, width=700, height=600)
+st.subheader('Relación entre la distribución de la población y la gestión de residuos a escala nacional')
+#folium_static(m)
+st_folium(m, width=700, height=600)
 
 
 # ----- Sección interactiva -----
@@ -595,11 +586,8 @@ colormap = LinearColormap(
 )
 
 # Centro del mapa basado en el GeoDataFrame
-#cantones_gdf_merged_projected = cantones_gdf_merged.to_crs(epsg=5367)
-#centro = [cantones_gdf_merged.geometry.centroid.y.mean(), cantones_gdf_merged.geometry.centroid.x.mean()]
-
 # Convertir a un CRS proyectado antes de calcular centroides
-cantones_gdf_merged_projected = cantones_gdf_merged.to_crs(epsg=5367)
+cantones_gdf_merged_projected = cantones_gdf_merged.to_crs(epsg=8909)
 
 # Calcular el centro del mapa basado en geometrías proyectadas
 centro = [
@@ -610,31 +598,20 @@ centro = [
 # (Opcional) Volver al CRS original si es necesario
 cantones_gdf_merged = cantones_gdf_merged_projected.to_crs(epsg=4326)
 
-#@st.cache_data
-#def calcular_centroides(_cantones_gdf_merged):
-#    # Proyectar a CRS adecuado para cálculos métricos
-#    cantones_gdf_merged_projected = _cantones_gdf_merged.to_crs(epsg=5367)
-#
-#    # Calcular centroides
-#    centro_y = cantones_gdf_merged_projected.geometry.centroid.y.mean()
-#    centro_x = cantones_gdf_merged_projected.geometry.centroid.x.mean()
-#
-#    return [centro_y, centro_x]
-
-# Calcular el centroide del GeoDataFrame
-#centro = calcular_centroides(cantones_gdf_merged)
+# Centro del mapa basado en el GeoDataFrame
+#centro = [cantones_gdf_merged.geometry.centroid.y.mean(), cantones_gdf_merged.geometry.centroid.x.mean()]
 
 # Crear el mapa base
 mapa = folium.Map(
     location=centro,
     zoom_start=9,
-    zoomControl=False
+    zoomControl=False  # Desactiva los controles de zoom (opcional)
 )
 
-# Agregar la capa de coropletas de cantones
-GeoJson(
+# Agregar la capa de coropletas al mapa
+folium.GeoJson(
     cantones_gdf_merged,
-    name="Cantones con la Media IDHD (2010-2020)",
+    name="Cantones con la Media IDHD (2010-2020) según provincia",
     style_function=lambda feature: {
         'fillColor': colormap(feature['properties']['media_IDHD']),
         'color': 'black',
@@ -652,8 +629,8 @@ GeoJson(
 colormap.caption = "Media del IDHD (2010-2020)"
 colormap.add_to(mapa)
 
-# Agregar una capa base de Esri Satellite
-folium.TileLayer(
+# Opcional: Añadir una capa base de Esri Satellite
+esri_satellite = folium.TileLayer(
     tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attr='Esri',
     name='Esri Satellite',
@@ -661,37 +638,37 @@ folium.TileLayer(
     control=True
 ).add_to(mapa)
 
-# Agregar marcadores para los botaderos
-for _, row in botaderos_gdf_merged.iterrows():
-    folium.CircleMarker(
-        location=[row.geometry.y, row.geometry.x],
-        radius=5,
-        color='white',
-        fill=True,
-        fill_opacity=0.8,
-        tooltip=f"Cantón: {row['canton']}<br>Tipo de botadero: {row['tipo de botadero']}"
-    ).add_to(mapa)
+# Añadir una capa de los botaderos
+botaderos_gdf_merged.explore(
+    m=mapa,
+    name='Localización de los botaderos',
+    marker_type='circle',
+    marker_kwds={'radius': 200, 'color': 'white'},
+    tooltip=['canton', 'tipo de botadero'],
+    popup=True
+)
 
-# Agregar la capa de contorno de provincias
-#GeoJson(
+# Añadir una capa de las provincias
+#folium.GeoJson(
 #    provincias_gdf_merged,
 #    name="Provincias",
 #    style_function=lambda feature: {
 #        'fillColor': 'none',  # Sin relleno
 #        'color': 'black',      # Color del borde
-#        'weight': 1,
-#        'fillOpacity': 0
+#        'weight': 1,          # Grosor del borde
+#        'fillOpacity': 0      # Transparencia completa
 #    },
 #    tooltip=GeoJsonTooltip(
 #        fields=["provincia"],
 #        aliases=["Provincia:"],
 #        localize=True
-#    )
+#    )    
 #).add_to(mapa)
 
 # Agregar un control de capas
 folium.LayerControl().add_to(mapa)
 
-# Mostrar el mapa con st_folium
+# Mostrar el mapa
 st.subheader('Relación entre la presencia de botaderos y el promedio del IDHD entre 2010 y 2020 por cantón según provincia')
+#folium_static(mapa)
 st_folium(mapa, width=700, height=600)
