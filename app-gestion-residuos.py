@@ -9,15 +9,15 @@ import plotly.express as px
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import mapclassify
-import rasterio
+#import rasterio
 import numpy as np
-import rasterio.plot
+#import rasterio.plot
 import folium
 import branca
 
 from io import BytesIO
 
-from rasterio.mask import mask
+#from rasterio.mask import mask
 from os import name
 from matplotlib import colors
 from folium import Choropleth, Popup, Tooltip, GeoJson, GeoJsonTooltip
