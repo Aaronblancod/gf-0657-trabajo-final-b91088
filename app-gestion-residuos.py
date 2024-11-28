@@ -508,7 +508,7 @@ esri_satellite = folium.TileLayer(
 folium.LayerControl().add_to(m)
 
 # Mostrar el mapa
-st.subheader('Relación entre la distribución de la población y la gestión de residuos a escala nacional')
+st.subheader('Densidad de botaderos por provincia a escala nacional')
 #folium_static(m)
 st_folium(m, width=700, height=600)
 
@@ -648,22 +648,22 @@ botaderos_gdf_merged.explore(
     popup=True
 )
 
-# Añadir una capa de las provincias
-#folium.GeoJson(
-#    provincias_gdf_merged,
-#    name="Provincias",
-#    style_function=lambda feature: {
-#        'fillColor': 'none',  # Sin relleno
-#        'color': 'black',      # Color del borde
-#        'weight': 1,          # Grosor del borde
-#        'fillOpacity': 0      # Transparencia completa
-#    },
-#    tooltip=GeoJsonTooltip(
-#        fields=["provincia"],
-#        aliases=["Provincia:"],
-#        localize=True
-#    )    
-#).add_to(mapa)
+ Añadir una capa de las provincias
+folium.GeoJson(
+    provincias_gdf_merged,
+    name="Provincias",
+    style_function=lambda feature: {
+        'fillColor': 'none',  # Sin relleno
+        'color': 'black',      # Color del borde
+        'weight': 1,          # Grosor del borde
+        'fillOpacity': 0      # Transparencia completa
+    },
+    tooltip=GeoJsonTooltip(
+        fields=["provincia"],
+        aliases=["Provincia:"],
+        localize=True
+    )    
+).add_to(mapa)
 
 # Agregar un control de capas
 folium.LayerControl().add_to(mapa)
