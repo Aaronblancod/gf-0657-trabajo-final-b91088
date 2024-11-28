@@ -61,7 +61,7 @@ datos_cantones_gdf = 'datos/Cantones.gpkg'
 
 # Datos ráster de población
 #El archivo original está en: https://raw.githubusercontent.com/Aaronblancod/tarea_03/refs/heads/main/Datos_entrada/cri_pop_2020.tif
-datos_poblacion = 'datos/cri_pop_2020.tif'
+# datos_poblacion = 'datos/cri_pop_2020.tif' #CAMBIO
 
 
 # ----- Funciones para recuperar los datos -----
@@ -107,11 +107,11 @@ def cargar_cantones_gdf():
 #     limite_gdf = gpd.read_file(datos_limite_gdf)
 #     return limite_gdf
 
-# Función para cargar los datos raster con rasterio
-@st.cache_resource
-def cargar_poblacion():
-    poblacion = rasterio.open(datos_poblacion)
-    return poblacion
+# Función para cargar los datos raster con rasterio  #CAMBIO
+#@st.cache_resource
+#def cargar_poblacion():
+#    poblacion = rasterio.open(datos_poblacion)
+#    return poblacion
 
 
 # ----- TÍTULO DE LA APLICACIÓN -----
@@ -155,10 +155,10 @@ estado_carga_cantones_gdf.text('Los datos geoespaciales de los cantones fueron c
 # limite_gdf = cargar_limite_gdf()
 # estado_carga_limite_gdf.text('Los datos geoespaciales de los límites fueron cargados.')
 
-# Cargar datos del raster de poblacion
-estado_carga_poblacion = st.text('Cargando datos sobre la población de Costa Rica del WorldPop...')
-poblacion = cargar_poblacion()
-estado_carga_poblacion.text('Los datos sobre la población de Costa Rica del WorldPop fueron cargados.')
+# Cargar datos del raster de poblacion  #CAMBIO
+#estado_carga_poblacion = st.text('Cargando datos sobre la población de Costa Rica del WorldPop...')
+#poblacion = cargar_poblacion()
+#estado_carga_poblacion.text('Los datos sobre la población de Costa Rica del WorldPop fueron cargados.')
 
 
 # ----- Preparación de datos -----
@@ -345,43 +345,42 @@ columnas_provin = [
 provincias_gdf_merged = provincias_gdf_merged[columnas_provin]
 
 
-# ----- Preparación de los datos raster -----
+# ----- Preparación de los datos raster -----  #CAMBIO
 
 # Lectura del ráster
-out_image = poblacion.read(1)  # Leer la primera banda
-out_transform = poblacion.transform  # Obtener la transformación
+#out_image = poblacion.read(1)  # Leer la primera banda
+#out_transform = poblacion.transform  # Obtener la transformación
 
 # Filtrar los valores menores o iguales a 0 y enmascararlos
-out_image[out_image <= 0] = np.nan  # Enmascarar los valores menores o iguales a 0 para excluirlos
+#out_image[out_image <= 0] = np.nan  # Enmascarar los valores menores o iguales a 0 para excluirlos
 
 # Normalizar los valores restantes del ráster para visualización
-raster_normalized = (out_image - np.nanmin(out_image)) / (np.nanmax(out_image) - np.nanmin(out_image))
+#raster_normalized = (out_image - np.nanmin(out_image)) / (np.nanmax(out_image) - np.nanmin(out_image))
 
 # Obtener los límites geográficos del ráster
-bounds = rasterio.transform.array_bounds(out_image.shape[0], out_image.shape[1], out_transform)
-extent = [[bounds[1], bounds[0]], [bounds[3], bounds[2]]]  # Formato [lat_min, lon_min, lat_max, lon_max]
+#bounds = rasterio.transform.array_bounds(out_image.shape[0], out_image.shape[1], out_transform)
+#extent = [[bounds[1], bounds[0]], [bounds[3], bounds[2]]]  # Formato [lat_min, lon_min, lat_max, lon_max]
 
 # Crear una paleta de colores personalizada (escala de naranjas)
-cmap = colors.LinearSegmentedColormap.from_list("purple_scale", ["#F7E1FF", "#C084F5", "#7A23E0", "#3E007A"])
-raster_colormap = cmap(raster_normalized)  # Aplicar la paleta al ráster normalizado
+#cmap = colors.LinearSegmentedColormap.from_list("purple_scale", ["#F7E1FF", "#C084F5", "#7A23E0", "#3E007A"])
+#raster_colormap = cmap(raster_normalized)  # Aplicar la paleta al ráster normalizado
 
 # Crear una leyenda personalizada para el ráster
-from branca.colormap import LinearColormap
-colormap = LinearColormap(
-    colors=["#F7E1FF", "#C084F5", "#7A23E0", "#3E007A"],
-    vmin=np.nanmin(out_image),  # Mínimo de los datos válidos
-    vmax=np.nanmax(out_image),  # Máximo de los datos válidos
-    caption="Población Total (Normalizada)"
-)
+#colormap = LinearColormap(
+#    colors=["#F7E1FF", "#C084F5", "#7A23E0", "#3E007A"],
+#    vmin=np.nanmin(out_image),  # Mínimo de los datos válidos
+#    vmax=np.nanmax(out_image),  # Máximo de los datos válidos
+#    caption="Población Total (Normalizada)"
+#)
 
 # Agregar el ráster de población al mapa como una superposición
-image_overlay = ImageOverlay(
-    image=raster_colormap,
-    bounds=extent,
-    opacity=0.4,
-    interactive=True,
-    name="Población Total"
-)
+#image_overlay = ImageOverlay(
+#    image=raster_colormap,
+#    bounds=extent,
+#    opacity=0.4,
+#    interactive=True,
+#    name="Población Total"
+#)
 
 
 # ----- TABLAS -----
@@ -493,8 +492,8 @@ for _, row in botaderos_gdf.iterrows():
     ).add_to(base_map)
 
 # Agregar la capa ráster y la leyenda al mapa
-image_overlay.add_to(base_map)
-colormap.add_to(base_map)
+#image_overlay.add_to(base_map)
+#colormap.add_to(base_map)
 
 # Añadir capa base de Esri Satellite
 folium.TileLayer(
