@@ -600,7 +600,7 @@ centro = [cantones_gdf_merged_projected.geometry.centroid.y.mean(), cantones_gdf
 #    return [centro_y, centro_x]
 
 # Calcular el centroide del GeoDataFrame
-centro = calcular_centroides(cantones_gdf_merged)
+#centro = calcular_centroides(cantones_gdf_merged)
 
 # Crear el mapa base
 mapa = folium.Map(
