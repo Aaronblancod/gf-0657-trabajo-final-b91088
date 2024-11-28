@@ -217,8 +217,8 @@ botaderos_idhd = botaderos_idhd[columnas_idhd]
 lista_provincias = botaderos_idhd['provincia'].unique().tolist()
 lista_provincias.sort()
 
-# Añadir la opción "Todos" al inicio de la lista
-opciones_provincias = ['Todos'] + lista_provincias
+# Añadir la opción "Todas" al inicio de la lista
+opciones_provincias = ['Todas'] + lista_provincias
 
 # Crear el selectbox en la barra lateral
 provincia_seleccionado = st.sidebar.selectbox(
@@ -228,7 +228,7 @@ provincia_seleccionado = st.sidebar.selectbox(
 
 # ----- Filtrar datos según la selección -----
 
-if provincia_seleccionado != 'Todos':
+if provincia_seleccionado != 'Todas':
     # Filtrar los datos para el provincia seleccionado
     botaderos_idhd_filtrados = botaderos_idhd[botaderos_idhd['provincia'] == provincia_seleccionado]
     
