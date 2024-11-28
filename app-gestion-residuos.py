@@ -672,7 +672,7 @@ provincias_gdf_merged['geometry'] = provincias_gdf_merged['geometry'].simplify(
 #).add_to(mapa)
 
 # Agregar un control de capas
-#folium.LayerControl().add_to(mapa)
+folium.LayerControl().add_to(mapa)
 
 # Mostrar el mapa
 st.subheader('Relación entre la presencia de botaderos y el promedio del IDHD entre 2010 y 2020 por cantón según provincia')
