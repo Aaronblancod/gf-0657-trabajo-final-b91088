@@ -648,7 +648,7 @@ botaderos_gdf_merged.explore(
     popup=True
 )
 
- Añadir una capa de las provincias
+# Añadir una capa de las provincias
 folium.GeoJson(
     provincias_gdf_merged,
     name="Provincias",
