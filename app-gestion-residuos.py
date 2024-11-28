@@ -508,8 +508,8 @@ folium.TileLayer(
 folium.LayerControl().add_to(base_map)
 
 # Mostrar el mapa
-st.subheader('Relación entre la distribución de la población y la gestión de residuos a escala nacional')
-st_folium(base_map, width=800, height=600)
+st.subheader('Densidad de botaderos por provincia a escala nacional')
+st_folium(base_map, width=700, height=600)
 
 
 # ----- Sección interactiva -----
@@ -585,7 +585,7 @@ colormap = LinearColormap(
 )
 
 # Centro del mapa basado en el GeoDataFrame
-cantones_gdf_merged_projected = _cantones_gdf_merged.to_crs(epsg=5367)
+cantones_gdf_merged_projected = cantones_gdf_merged.to_crs(epsg=5367)
 centro = [cantones_gdf_merged_projected.geometry.centroid.y.mean(), cantones_gdf_merged.geometry.centroid.x.mean()]
 
 #@st.cache_data
@@ -672,4 +672,4 @@ folium.LayerControl().add_to(mapa)
 
 # Mostrar el mapa con st_folium
 st.subheader('Relación entre la presencia de botaderos y el promedio del IDHD entre 2010 y 2020 por cantón según provincia')
-st_folium(mapa, width=800, height=600)
+st_folium(mapa, width=700, height=600)
