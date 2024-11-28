@@ -596,7 +596,7 @@ colormap = LinearColormap(
 #]
 
 # (Opcional) Volver al CRS original si es necesario
-cantones_gdf_merged = cantones_gdf_merged_projected.to_crs(epsg=4326)
+cantones_gdf_merged = cantones_gdf_merged.to_crs(epsg=4326)
 
 # Centro del mapa basado en el GeoDataFrame
 centro = [cantones_gdf_merged.geometry.centroid.y.mean(), cantones_gdf_merged.geometry.centroid.x.mean()]
