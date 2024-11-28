@@ -586,7 +586,19 @@ colormap = LinearColormap(
 
 # Centro del mapa basado en el GeoDataFrame
 #cantones_gdf_merged_projected = cantones_gdf_merged.to_crs(epsg=5367)
-centro = [cantones_gdf_merged.geometry.centroid.y.mean(), cantones_gdf_merged.geometry.centroid.x.mean()]
+#centro = [cantones_gdf_merged.geometry.centroid.y.mean(), cantones_gdf_merged.geometry.centroid.x.mean()]
+
+# Convertir a un CRS proyectado antes de calcular centroides
+cantones_gdf_merged_projected = cantones_gdf_merged.to_crs(epsg=5367)
+
+# Calcular el centro del mapa basado en geometrías proyectadas
+centro = [
+    cantones_gdf_merged_projected.geometry.centroid.y.mean(),
+    cantones_gdf_merged_projected.geometry.centroid.x.mean()
+]
+
+# (Opcional) Volver al CRS original si es necesario
+cantones_gdf_merged = cantones_gdf_merged_projected.to_crs(epsg=4326)
 
 #@st.cache_data
 #def calcular_centroides(_cantones_gdf_merged):
